@@ -34,6 +34,9 @@
                         <p>チャンネル: <%= video.author %></p>
                         <p>再生回数: <%= video.views %> 回</p>
                         <p>長さ: <%= video.duration %></p>
+                        <% if (video.isLive) { %>
+                            <p style="color: red;">ライブ配信中</p>
+                        <% } %>
                     </div>
                 <% }); %>
             </div>
