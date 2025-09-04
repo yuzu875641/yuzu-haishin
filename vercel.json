@@ -1,8 +1,72 @@
 {
+  "version": 2,
+  "public": true,
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/_next/static/(.*)",
+      "destination": "/_next/static/$1"
+    },
+    {
+      "source": "/api/(.*)",
       "destination": "/server.js"
+    },
+    {
+      "source": "/video/:id",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/search",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/(.*).html",
+      "destination": "/server.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://vjs.zencdn.net; img-src 'self' data: https:; media-src 'self' blob: https:;"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/favicon.ico",
+      "dest": "/public/favicon.ico"
+    }
+  ],
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "views/**",
+          "server/**",
+          "package.json"
+        ]
+      }
     }
   ]
 }
