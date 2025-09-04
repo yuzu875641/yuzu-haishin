@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube検索</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .search-form { margin-bottom: 2em; }
+        .video-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .video-item { border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+        .video-item img { width: 100%; height: auto; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>YouTube検索</h1>
+
+    <div class="search-form">
+        <form action="/search" method="GET">
+            <input type="text" name="q" placeholder="動画を検索..." value="<%= searchTerm %>">
+            <button type="submit">検索</button>
+        </form>
+    </div>
+
+    <% if (videos) { %>
+        <% if (videos.length > 0) { %>
+            <div class="video-list">
+                <% videos.forEach(video => { %>
+                    <div class="video-item">
+                        <a href="/video/<%= video.id %>">
+                            <img src="<%= video.thumbnail %>" alt="<%= video.title %>のサムネイル">
+                            <h3><%= video.title %></h3>
+                        </a>
+                        <p>チャンネル: <%= video.author %></p>
+                        <p>再生回数: <%= video.views %> 回</p>
+                        <p>長さ: <%= video.duration %></p>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>検索結果が見つかりませんでした。</p>
+        <% } %>
+    <% } %>
+
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+</body>
+</html>
