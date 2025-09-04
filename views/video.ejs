@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= videoInfo.videoTitle %></title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .video-container { max-width: 960px; margin: auto; }
+        .video-player { width: 100%; height: auto; }
+        .video-info { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <h1><%= videoInfo.videoTitle %></h1>
+        <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+            <source src="<%= videoInfo.stream_url %>" type="application/x-mpegURL">
+            <p class="vjs-no-js">
+                動画を視聴するには、JavaScriptを有効にするか、HTML5ビデオをサポートするブラウザにアップグレードしてください。
+            </p>
+        </video>
+        <div class="video-info">
+            <p><strong>チャンネル:</strong> <a href="https://www.youtube.com/channel/<%= videoInfo.channelId %>" target="_blank"><%= videoInfo.channelName %></a></p>
+            <p><strong>再生回数:</strong> <%= videoInfo.videoViews %></p>
+            <p><strong>高画質ストリームURL:</strong> <a href="<%= videoInfo.highstreamUrl %>" target="_blank">1080p</a></p>
+            <p><strong>音声URL:</strong> <a href="<%= videoInfo.audioUrl %>" target="_blank">M4A</a></p>
+            <h3>説明</h3>
+            <p><%= videoInfo.videoDes %></p>
+        </div>
+    </div>
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+</body>
+</html>
